@@ -63,4 +63,4 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
-export PATH=/home/ubuntu/anaconda3/bin:PATH #puts Anaconda python build first
+#export PATH=/home/ubuntu/anaconda3/bin:PATH #puts Anaconda python build first
