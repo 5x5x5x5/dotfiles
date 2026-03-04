@@ -1,0 +1,33 @@
+set nocompatible
+
+syntax on
+
+set shortmess+=I
+
+" Show number lines
+set number
+
+set relativenumber
+
+" Always show the status line at the bottom, even if you only have one window
+" open
+set laststatus=2
+
+set backspace=indent,eol,start
+
+set hidden
+
+" search improvements
+set ignorecase
+set smartcase
+
+set incsearch
+
+" Unbind annoying keybinding
+nmap Q <nop>
+
+" Enable mouse support
+set mouse+=a
+
+" set Danny's favorite colorblind colorscheme
+" colorscheme delek

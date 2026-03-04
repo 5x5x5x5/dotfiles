@@ -1,0 +1,20 @@
+[user]
+    name = Daniel Siegle
+    email = daniel.siegle@gmail.com
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = True
+
+[core]
+    editor = vim
+
+
+[alias]
+    s = status -sb
+    lg = log --online --graph --decorate -20
+    d = diff
+    co = checkout
+    cm = commit -m
