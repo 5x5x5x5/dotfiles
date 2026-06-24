@@ -18,9 +18,12 @@ adding a new `dot_*` entry — `install.sh` picks it up with no edits.
 
 ### Working in this repo
 
-- **Keep shell configs portable.** Tool integrations (starship, zoxide, fzf,
-  eza, …) must be guarded — `command -v tool >/dev/null && …` — so the files are
-  safe to drop on any machine where those tools aren't installed.
+- **Target Linux only.** Configs assume various Linux distros and terminals —
+  no macOS or Windows accommodations (no Homebrew paths, no `.DS_Store`/Windows
+  ignores, no BSD-`ls` branch). Don't re-add them.
+- **Keep shell configs portable across Linux.** Tool integrations (starship,
+  zoxide, fzf, eza, …) must be guarded — `command -v tool >/dev/null && …` — so
+  the files are safe to drop on any host where those tools aren't installed.
 - **Don't shadow standard tools.** `cat`/`grep`/`find` are left alone; their
   rewrites (`bat`/`rg`/`fd`) are used by their own names.
 - **`dot_aliases` is shared** by both `dot_zshrc` and `dot_bashrc` — put common
@@ -40,7 +43,7 @@ adding a new `dot_*` entry — `install.sh` picks it up with no edits.
 - Tests: pytest in tests/ directory
 
 ## JavaScript/TypeScript Projects
-- Node 22, npm
+- Node 24, npm
 - Format with prettier when available in project
 
 ## Workflow Preferences

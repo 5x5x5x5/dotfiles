@@ -11,10 +11,7 @@ if command -v eza >/dev/null; then
   alias la='eza -lah --group-directories-first --git'
   alias lt='eza --tree --level=2 --group-directories-first'
 else
-  case "$(uname -s)" in
-    Darwin) alias ls='ls -G' ;;          # BSD ls
-    *)      alias ls='ls --color=auto' ;; # GNU ls
-  esac
+  alias ls='ls --color=auto'   # GNU coreutils ls
   alias ll='ls -lh'
   alias la='ls -lAh'
 fi

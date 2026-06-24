@@ -68,12 +68,13 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
 command -v zoxide   >/dev/null && eval "$(zoxide init zsh)"
 command -v fzf      >/dev/null && source <(fzf --zsh) 2>/dev/null
 
-# Syntax highlighting / autosuggestions, if installed via your package manager.
+# Syntax highlighting / autosuggestions, if installed via your distro's package
+# manager (Debian/Ubuntu/Fedora use the flat path; Arch nests under zsh/plugins).
 for _p in \
-  /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 do
   [[ -r "$_p" ]] && source "$_p"
 done

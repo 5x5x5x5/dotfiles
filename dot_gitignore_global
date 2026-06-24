@@ -1,26 +1,13 @@
-# Global gitignore — OS, editor, and personal cruft that should never be
+# Global gitignore — Linux, editor, and personal cruft that should never be
 # committed in ANY repository. Project-specific build artifacts (node_modules,
 # __pycache__, dist/) belong in each project's own .gitignore, not here.
 #
 # Activated by `core.excludesfile = ~/.gitignore_global` in ~/.gitconfig.
 
-# --- macOS ---
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon?
-._*
-
 # --- Linux ---
 *~
 .directory
 .Trash-*
-
-# --- Windows ---
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
 
 # --- Editor / IDE swap & workspace files ---
 *.swp

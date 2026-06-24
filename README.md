@@ -45,15 +45,19 @@ they're missing.
 | [fd](https://github.com/sharkdp/fd) | `find` | Friendlier, faster |
 | [delta](https://github.com/dandavison/delta) | git pager | Side-by-side, syntax-highlighted diffs |
 
-Install them all:
+Install them (pick your distro):
 
 ```sh
-# macOS
-brew install starship zoxide fzf eza bat ripgrep fd git-delta
+# Arch
+sudo pacman -S starship zoxide fzf eza bat ripgrep fd git-delta
 
-# Debian / Ubuntu (some are named differently: bat -> batcat, fd -> fdfind)
+# Debian / Ubuntu (note: bat -> batcat, fd -> fdfind)
 sudo apt install fzf bat ripgrep fd-find
 # starship, zoxide, eza, delta: see each project's install docs
+
+# Fedora
+sudo dnf install fzf bat ripgrep fd-find zoxide
+# starship, eza, delta: see each project's install docs
 ```
 
 A [Nerd Font](https://www.nerdfonts.com/) (e.g. JetBrainsMono Nerd Font) is
