@@ -1,0 +1,49 @@
+# ~/.bashrc — interactive bash configuration.
+# Mirrors the zsh setup; handy on Linux servers where bash is the default.
+
+# Only continue for interactive shells.
+case $- in *i*) ;; *) return ;; esac
+
+# ---------------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------------
+HISTFILE="$HOME/.bash_history"
+HISTSIZE=50000
+HISTFILESIZE=100000
+HISTCONTROL=ignoreboth:erasedups          # no duplicate or space-prefixed entries
+shopt -s histappend                       # append rather than overwrite on exit
+PROMPT_COMMAND="history -a; ${PROMPT_COMMAND:-}"
+
+# ---------------------------------------------------------------------------
+# Shell options
+# ---------------------------------------------------------------------------
+shopt -s checkwinsize                      # track terminal size after each command
+shopt -s cdspell                           # autocorrect minor `cd` typos
+shopt -s globstar 2>/dev/null              # ** matches recursively (bash 4+)
+shopt -s autocd  2>/dev/null               # `cd` by typing a directory name (bash 4+)
+
+# ---------------------------------------------------------------------------
+# Completion
+# ---------------------------------------------------------------------------
+if ! shopt -oq posix; then
+  for _f in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
+    [[ -r "$_f" ]] && source "$_f" && break
+  done
+  unset _f
+fi
+
+# ---------------------------------------------------------------------------
+# Aliases (shared with zsh)
+# ---------------------------------------------------------------------------
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+# ---------------------------------------------------------------------------
+# Modern tool integrations — each guarded so a missing tool is a silent no-op.
+# ---------------------------------------------------------------------------
+command -v starship >/dev/null && eval "$(starship init bash)"
+command -v zoxide   >/dev/null && eval "$(zoxide init bash)"
+command -v fzf      >/dev/null && eval "$(fzf --bash)" 2>/dev/null
+
+# A readable, color prompt if starship isn't installed.
+command -v starship >/dev/null || \
+  PS1='\[\e[32m\]\u@\h\[\e[0m\]:\[\e[34m\]\w\[\e[0m\]\$ '

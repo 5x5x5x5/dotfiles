@@ -1,0 +1,49 @@
+# ~/.aliases — shared by bash and zsh.
+# Modern CLI tools are used when present; otherwise we fall back to coreutils.
+# Standard tools (cat, grep, find) are deliberately NOT shadowed by their
+# rewrites — those behave differently and shadowing them surprises scripts and
+# muscle memory. Use `bat`, `rg`, `fd` by their own names.
+
+# --- ls / eza -------------------------------------------------------------
+if command -v eza >/dev/null; then
+  alias ls='eza --group-directories-first'
+  alias ll='eza -lh --group-directories-first --git'
+  alias la='eza -lah --group-directories-first --git'
+  alias lt='eza --tree --level=2 --group-directories-first'
+else
+  case "$(uname -s)" in
+    Darwin) alias ls='ls -G' ;;          # BSD ls
+    *)      alias ls='ls --color=auto' ;; # GNU ls
+  esac
+  alias ll='ls -lh'
+  alias la='ls -lAh'
+fi
+
+# --- grep colors (kept as real grep) -------------------------------------
+alias grep='grep --color=auto'
+alias egrep='grep -E --color=auto'
+alias fgrep='grep -F --color=auto'
+
+# --- git ------------------------------------------------------------------
+alias g='git'
+alias gs='git status -sb'
+alias gl='git log --oneline --graph --decorate -20'
+alias gd='git diff'
+alias gsw='git switch'
+alias gcm='git commit -m'
+alias gca='git commit --amend'
+alias gp='git push'
+alias gpl='git pull'
+alias gaa='git add --all'
+
+# --- navigation -----------------------------------------------------------
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# --- quality of life ------------------------------------------------------
+alias mkdir='mkdir -p'
+alias df='df -h'
+alias du='du -h'
+alias path='echo -e "${PATH//:/\\n}"'
+alias reload='exec "$SHELL" -l'

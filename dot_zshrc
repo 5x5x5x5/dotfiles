@@ -1,0 +1,83 @@
+# ~/.zshrc — interactive zsh configuration.
+# Framework-free and lightweight. Modern CLI integrations load only when the
+# corresponding tool is installed, so this file is safe to drop on any machine.
+
+# ---------------------------------------------------------------------------
+# History
+# ---------------------------------------------------------------------------
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+
+setopt EXTENDED_HISTORY        # record a timestamp with each command
+setopt INC_APPEND_HISTORY      # write to the history file immediately
+setopt SHARE_HISTORY           # share history across running sessions
+setopt HIST_IGNORE_ALL_DUPS    # drop older duplicates of a command
+setopt HIST_IGNORE_SPACE       # skip commands that start with a space
+setopt HIST_REDUCE_BLANKS      # trim superfluous whitespace
+setopt HIST_VERIFY             # don't run an expanded ! history line blindly
+
+# ---------------------------------------------------------------------------
+# Shell options
+# ---------------------------------------------------------------------------
+setopt AUTO_CD                 # `cd` into a directory just by typing its name
+setopt AUTO_PUSHD              # maintain a directory stack
+setopt PUSHD_IGNORE_DUPS
+setopt INTERACTIVE_COMMENTS    # allow # comments at the interactive prompt
+setopt NO_BEEP
+
+# ---------------------------------------------------------------------------
+# Completion (cached; rebuilt at most once a day for fast startup)
+# ---------------------------------------------------------------------------
+autoload -Uz compinit
+_zcd="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+mkdir -p "${_zcd:h}"
+# Glob qualifiers expand in this array assignment (they do NOT inside [[ ]]).
+_fresh=(${_zcd}(Nmh-24))       # the dump only if modified <24h ago
+if (( $#_fresh )); then
+  compinit -C -d "$_zcd"       # cache is fresh -> skip the slow security scan
+else
+  compinit -d "$_zcd"          # stale or missing -> rebuild
+fi
+unset _zcd _fresh
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # case-insensitive
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# ---------------------------------------------------------------------------
+# Keybindings (emacs-style; swap to `bindkey -v` for vi mode)
+# ---------------------------------------------------------------------------
+bindkey -e
+# Up/Down search history for entries matching what's already typed.
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+# ---------------------------------------------------------------------------
+# Aliases (shared with bash, kept in ~/.aliases)
+# ---------------------------------------------------------------------------
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+# ---------------------------------------------------------------------------
+# Modern tool integrations — each guarded so a missing tool is a silent no-op.
+# ---------------------------------------------------------------------------
+command -v starship >/dev/null && eval "$(starship init zsh)"
+command -v zoxide   >/dev/null && eval "$(zoxide init zsh)"
+command -v fzf      >/dev/null && source <(fzf --zsh) 2>/dev/null
+
+# Syntax highlighting / autosuggestions, if installed via your package manager.
+for _p in \
+  /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+  /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+do
+  [[ -r "$_p" ]] && source "$_p"
+done
+unset _p
+
+# A minimal prompt if starship isn't installed.
+command -v starship >/dev/null || PROMPT='%F{green}%n@%m%f:%F{blue}%~%f %# '

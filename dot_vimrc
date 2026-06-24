@@ -31,3 +31,23 @@ set mouse+=a
 
 " set Danny's favorite colorblind colorscheme
 " colorscheme delek
+
+" --- Modern, widely-agreed-good additions ---
+set encoding=utf-8
+set wildmenu                 " visual completion menu on the command line
+set scrolloff=5              " keep a few lines of context around the cursor
+set hlsearch                 " highlight all matches of the last search
+set splitright splitbelow    " open new splits where the eye expects them
+
+" Spaces over tabs, four wide (override per-filetype as needed).
+set expandtab
+set tabstop=4 shiftwidth=4 softtabstop=4
+set autoindent smartindent
+
+" Persistent undo: keep undo history across editing sessions.
+set undofile
+set undodir=~/.vim/undodir
+silent! call mkdir($HOME . '/.vim/undodir', 'p')
+
+" Use the system clipboard when Vim was built with clipboard support.
+set clipboard^=unnamed,unnamedplus

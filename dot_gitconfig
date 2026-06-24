@@ -5,16 +5,62 @@
 [init]
     defaultBranch = main
 
-[pull]
-    rebase = True
-
 [core]
     editor = vim
+    excludesfile = ~/.gitignore_global
 
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true        # first push on a new branch sets its upstream
+    followTags = true             # push annotated tags along with commits
+
+[fetch]
+    prune = true                  # drop remote-tracking refs that are gone
+
+[rebase]
+    autoStash = true              # stash/restore around `git rebase`
+    autoSquash = true             # honor fixup!/squash! commits automatically
+
+[merge]
+    conflictstyle = zdiff3        # clearer 3-way conflict markers (git 2.35+)
+
+[diff]
+    algorithm = histogram         # better, faster diffs than the default
+    colorMoved = default          # distinguish moved lines from add/delete
+    mnemonicPrefix = true         # i/ (index) w/ (worktree) prefixes, not a/ b/
+    renames = true
+
+[branch]
+    sort = -committerdate         # most recently used branches first
+
+[tag]
+    sort = version:refname        # natural version ordering for tags
+
+[column]
+    ui = auto                     # tidy multi-column output (git 2.31+)
+
+[rerere]
+    enabled = true                # reuse recorded conflict resolutions
+
+[help]
+    autocorrect = prompt          # offer to run the command you clearly meant
+
+[commit]
+    verbose = true                # show the diff while editing the message
+
+[color]
+    ui = auto
 
 [alias]
     s = status -sb
     lg = log --oneline --graph --decorate -20
     d = diff
     co = checkout
+    sw = switch
     cm = commit -m
+    aa = add --all
+    amend = commit --amend --no-edit
+    unstage = restore --staged
+    last = log -1 HEAD --stat
