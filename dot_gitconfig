@@ -14,7 +14,7 @@
 
 [alias]
     s = status -sb
-    lg = log --online --graph --decorate -20
+    lg = log --oneline --graph --decorate -20
     d = diff
     co = checkout
     cm = commit -m
