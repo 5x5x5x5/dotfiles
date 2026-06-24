@@ -1,3 +1,39 @@
+# CLAUDE.md
+
+## This repository
+
+Personal **dotfiles** — shell, git, editor, tmux, and prompt configuration.
+
+### Naming convention (`dot_` prefix)
+
+Files are stored without a leading dot and mapped into `$HOME` on install:
+
+- `dot_foo` → `~/.foo` (e.g. `dot_zshrc` → `~/.zshrc`)
+- `dot_config/<path>` → `~/.config/<path>` (e.g. `dot_config/starship.toml` → `~/.config/starship.toml`)
+
+This is compatible with [chezmoi](https://www.chezmoi.io/) and with the repo's
+own `install.sh`, which symlinks each `dot_*` into `$HOME`, backing up anything
+it replaces to `~/.dotfiles-backup/<timestamp>/`. Adding a new config file means
+adding a new `dot_*` entry — `install.sh` picks it up with no edits.
+
+### Working in this repo
+
+- **Keep shell configs portable.** Tool integrations (starship, zoxide, fzf,
+  eza, …) must be guarded — `command -v tool >/dev/null && …` — so the files are
+  safe to drop on any machine where those tools aren't installed.
+- **Don't shadow standard tools.** `cat`/`grep`/`find` are left alone; their
+  rewrites (`bat`/`rg`/`fd`) are used by their own names.
+- **`dot_aliases` is shared** by both `dot_zshrc` and `dot_bashrc` — put common
+  aliases there, not in a single shell's rc.
+- **Keep `dot_gitconfig` tool-agnostic.** Don't hardcode optional tools (e.g.
+  `delta`) as defaults; document opt-in snippets in `README.md` instead.
+- **The starship prompt is font-safe** — avoid Nerd Font private-use glyphs so
+  it renders in any monospace font.
+- **Validate before committing:** `bash -n <file>` for bash scripts,
+  `zsh -n dot_zshrc` for zsh, and `git config --file dot_gitconfig --list` to
+  confirm the gitconfig parses.
+- Update `README.md`'s file table when adding or removing a config file.
+
 ## Python Projects
 - Always use `uv` — never pip or venv directly
 - Linting: ruff. Type checking: mypy. Formatting: ruff format
