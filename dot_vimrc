@@ -47,7 +47,10 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 " Spell check in prose files only
 autocmd FileType markdown,text setlocal spell spelllang=en_us
 
-" Use the system clipboard when Vim is built with it (vim-gtk3)
-if has('clipboard')
-  set clipboard=unnamedplus
+" Copy yanks to the system clipboard via wl-clipboard (plain vim has no
+" clipboard support); paste from the system with the terminal's Ctrl+Shift+V
+if !has('clipboard') && executable('wl-copy')
+  autocmd TextYankPost * if v:event.operator ==# 'y' |
+        \ call system('wl-copy' . (v:event.regtype ==# 'v' ? ' -n' : ''), v:event.regcontents) |
+        \ endif
 endif
