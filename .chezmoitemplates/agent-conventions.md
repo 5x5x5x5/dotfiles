@@ -9,6 +9,7 @@
 ## Git and GitHub
 - Commit messages: concise, imperative mood, explain why
 - git over SSH for push/pull/clone; gh for PRs, issues, reviews, repo creation and Pages
+- Default branch is always `main`, never `master`
 
 ## Dotfiles
 - Managed by chezmoi (source in ~/.local/share/chezmoi): edit the source and run
