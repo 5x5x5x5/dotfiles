@@ -31,3 +31,23 @@ set mouse+=a
 
 " set Danny's favorite colorblind colorscheme
 " colorscheme delek
+
+" Load filetype plugins (markdown, etc.) and their indent rules
+filetype plugin indent on
+
+" Prose: wrap long lines at word boundaries, keeping indentation
+set wrap
+set linebreak
+set breakindent
+
+" Move by screen line through wrapped text, unless given a count
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
+" Spell check in prose files only
+autocmd FileType markdown,text setlocal spell spelllang=en_us
+
+" Use the system clipboard when Vim is built with it (vim-gtk3)
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
