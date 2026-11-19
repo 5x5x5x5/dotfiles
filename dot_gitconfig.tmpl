@@ -1,0 +1,30 @@
+[user]
+    name = Daniel Siegle
+    email = daniel.siegle@gmail.com
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = True
+
+[core]
+    editor = vim
+
+
+[alias]
+    s = status -sb
+    lg = log --oneline --graph --decorate -20
+    d = diff
+    co = checkout
+    cm = commit -m
+
+{{- /* gh path differs per machine; skip the blocks where gh is not installed */ -}}
+{{ with lookPath "gh" }}
+[credential "https://github.com"]
+	helper =
+	helper = !{{ . }} auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !{{ . }} auth git-credential
+{{- end }}
