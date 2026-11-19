@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# bigups: apt update, upgrade, and clean out unused packages.
+# bigups: apt update, upgrade, clean out unused packages, then refresh snaps.
 set -euo pipefail
 sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove -y
+# Shared across machines, and not all of them have snap.
+if command -v snap >/dev/null; then sudo snap refresh; fi
+if [ -f /var/run/reboot-required ]; then cat /var/run/reboot-required; fi
